@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Piedra, Papel o Tijera</title>
-</head>
-<body>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
     <!--
     <h1>Piedra, Papel o Tijera</h1>
 
@@ -23,40 +30,40 @@
     <hr>
     -->
     <main>
-        <div class="container">
-            <div class="main-content">
-                <div class="juego">
-                    <h1 class="title">Piedra Papel o Tijera</h1>
-                    <section class="container-btns">
-                        <article class="item-btns">
-                            <button class="btn btn-piedra" data-id="piedra">Piedra</button>
-                        </article>
-                        <article class="item-btns">
-                            <button class="btn btn-papel" data-id="papel">Papel</button>
-                        </article>
-                        <article class="item-btns">
-                            <button class="btn btn-tijera" data-id="tijera">Tijera</button>
-                        </article>
-                    </section>
-                    <h2 class="rounds">Ronda: <span class="round">2</span></h2>
-                    <section class="container-wins">
-                        <article class="item-wins">
-                            <span class="winsPlayer">2</span>
-                            <p>Player</p>
-                        </article>
-                        <article class="item-wins">
-                            <span class="winsComputer">3</span>
-                            <p>Computer</p>
-                        </article>
-                    </section>
-                    <section class="winner">
-                        <h3 class="win-end">El ganador es Player</h3>
-                    </section>
-                </div>
-            </div>
+      <div class="container">
+        <div class="main-content">
+          <div class="juego">
+            <h1 class="title">Piedra Papel o Tijera</h1>
+            <section class="container-btns">
+              <article class="item-btns">
+                <button class="btn btn-piedra" data-id="piedra">Piedra</button>
+              </article>
+              <article class="item-btns">
+                <button class="btn btn-papel" data-id="papel">Papel</button>
+              </article>
+              <article class="item-btns">
+                <button class="btn btn-tijera" data-id="tijera">Tijera</button>
+              </article>
+            </section>
+            <h2 class="rounds">Ronda: <span class="round">0</span></h2>
+            <section class="container-wins">
+              <article class="item-wins">
+                <span class="winsPlayer">0</span>
+                <p>Player</p>
+              </article>
+              <article class="item-wins">
+                <span class="winsComputer">0</span>
+                <p>Computer</p>
+              </article>
+            </section>
+            <section class="winner">
+              <h3 class="win-end"></h3>
+            </section>
+          </div>
         </div>
+      </div>
     </main>
 
     <script src="./js/app.js"></script>
-</body>
+  </body>
 </html>

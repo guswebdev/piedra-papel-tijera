@@ -1,4 +1,13 @@
 const d = document;
+const round = d.querySelector(".round");
+const winsPlayer = d.querySelector(".winsPlayer");
+const winsComputer = d.querySelector(".winsComputer");
+const winsEnd = d.querySelector(".win-end");
+
+let contador = 1;
+let limitRound = 6;
+let contPlayer = 0;
+let contComputer = 0;
 
 function computerPlay() {
   const posiblesManos = ["piedra", "papel", "tijera"];
@@ -7,92 +16,60 @@ function computerPlay() {
 }
 
 function playRound(playerSelection, computerSelection) {
-  // your code here!
-  console.log(`player: ${playerSelection}`);
-  console.log(`computer: ${computerSelection}`);
-
-  if (playerSelection === computerSelection) return `empate`;
+  if (playerSelection === computerSelection) return;
 
   switch (computerSelection) {
     case "piedra":
       if (playerSelection === "tijera") {
-        return "computer";
+        contComputer++;
       } else {
-        return "player";
+        contPlayer++;
       }
+      break;
     case "papel":
       if (playerSelection === "piedra") {
-        return "computer";
+        contComputer++;
       } else {
-        return "player";
+        contPlayer++;
       }
+      break;
     case "tijera":
       if (playerSelection === "papel") {
-        return "computer";
+        contComputer++;
       } else {
-        return "player";
+        contPlayer++;
       }
+      break;
   }
 }
 
 function game(playerSelection) {
-  let contador = 1;
-  let winsPlayer = 0;
-  let winsComputer = 0;
+  if (contador === limitRound) return;
 
-  const juego = {
-      name: 'player',
-      play: 'piedra',
-      wins: 0
-  }
-
-  const winText = d.querySelector(".win");
-
-  console.log(`---------- Ronda ${contador} -------------`);
+  round.textContent = contador;
 
   const computerSelection = computerPlay();
-  let ganador = playRound(playerSelection, computerSelection);
-  console.log(ganador);
-  winText.textContent = ganador;
-  if (ganador === "computer") {
-    winsComputer++;
-  } else if (ganador === "player") {
-    winsPlayer++;
-  }
+  playRound(playerSelection, computerSelection);
 
+  winsComputer.textContent = contComputer;
+  winsPlayer.textContent = contPlayer;
   /*
-  while (contador <= 5) {
-    console.log(`---------- Ronda ${contador} -------------`);
-    const playerSelection = prompt(
-      `Ingrese piedra, papel o tijera`
-    ).toLowerCase();
-    const computerSelection = computerPlay();
-    let ganador = playRound(playerSelection, computerSelection);
-    console.log(ganador);
-    if (ganador === "computer") {
-      winsComputer++;
-    } else if (ganador === "player") {
-      winsPlayer++;
-    }
-    contador++;
-  }
-*/
-  if (winsPlayer === winsComputer) {
-    return `Ha sido un empate`.toUpperCase();
-  } else if (winsPlayer > winsComputer) {
-    return `El ganador es Player`.toUpperCase();
+  if (contPlayer === contComputer) {
+    winsEnd.textContent = `Ha sido un empate`.toUpperCase();
+  } else if (contPlayer > contComputer) {
+    winsEnd.textContent = `El ganador es Player`.toUpperCase();
   } else {
-    return `El ganador es Computer`.toUpperCase();
+    winsEnd.textContent = `El ganador es Computer`.toUpperCase();
   }
+  */
+  contador++;
 }
-
-//console.log(game());
 
 /* DELEGACION DE EVENTO BOTONES */
 
 const playerPlay = (e) => {
   if (e.target.matches(".btn")) {
-    console.log(game(e.target.dataset.id));
+    game(e.target.dataset.id);
   }
 };
 
