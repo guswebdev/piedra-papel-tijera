@@ -7,8 +7,56 @@
     <title>Piedra, Papel o Tijera</title>
 </head>
 <body>
+    <!--
     <h1>Piedra, Papel o Tijera</h1>
+
+    <button class="btn btn-piedra" data-id="piedra">Piedra</button>
+    <button class="btn btn-papel" data-id="papel">Papel</button>
+    <button class="btn btn-tijera" data-id="tijera">Tijera</button>
+
+    <div class="winner">
+        <h3>Rondas player: <span class="count-player">3</span></h3>
+        <h3>Rondas computer: <span class="count-computer">5</span></h3>
+        <h2>El ganador es: <span class="win"></span></h2>
+    </div>
     
+    <hr>
+    -->
+    <main>
+        <div class="container">
+            <div class="main-content">
+                <div class="juego">
+                    <h1 class="title">Piedra Papel o Tijera</h1>
+                    <section class="container-btns">
+                        <article class="item-btns">
+                            <button class="btn btn-piedra" data-id="piedra">Piedra</button>
+                        </article>
+                        <article class="item-btns">
+                            <button class="btn btn-papel" data-id="papel">Papel</button>
+                        </article>
+                        <article class="item-btns">
+                            <button class="btn btn-tijera" data-id="tijera">Tijera</button>
+                        </article>
+                    </section>
+                    <h2 class="rounds">Ronda: <span class="round">2</span></h2>
+                    <section class="container-wins">
+                        <article class="item-wins">
+                            <span class="winsPlayer">2</span>
+                            <p>Player</p>
+                        </article>
+                        <article class="item-wins">
+                            <span class="winsComputer">3</span>
+                            <p>Computer</p>
+                        </article>
+                    </section>
+                    <section class="winner">
+                        <h3 class="win-end">El ganador es Player</h3>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+
     <script src="./js/app.js"></script>
 </body>
 </html>

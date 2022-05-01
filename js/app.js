@@ -1,3 +1,5 @@
+const d = document;
+
 function computerPlay() {
   const posiblesManos = ["piedra", "papel", "tijera"];
   const random = Math.floor(Math.random() * 3);
@@ -33,11 +35,32 @@ function playRound(playerSelection, computerSelection) {
   }
 }
 
-function game() {
+function game(playerSelection) {
   let contador = 1;
   let winsPlayer = 0;
   let winsComputer = 0;
 
+  const juego = {
+      name: 'player',
+      play: 'piedra',
+      wins: 0
+  }
+
+  const winText = d.querySelector(".win");
+
+  console.log(`---------- Ronda ${contador} -------------`);
+
+  const computerSelection = computerPlay();
+  let ganador = playRound(playerSelection, computerSelection);
+  console.log(ganador);
+  winText.textContent = ganador;
+  if (ganador === "computer") {
+    winsComputer++;
+  } else if (ganador === "player") {
+    winsPlayer++;
+  }
+
+  /*
   while (contador <= 5) {
     console.log(`---------- Ronda ${contador} -------------`);
     const playerSelection = prompt(
@@ -53,7 +76,7 @@ function game() {
     }
     contador++;
   }
-
+*/
   if (winsPlayer === winsComputer) {
     return `Ha sido un empate`.toUpperCase();
   } else if (winsPlayer > winsComputer) {
@@ -63,4 +86,14 @@ function game() {
   }
 }
 
-console.log(game());
+//console.log(game());
+
+/* DELEGACION DE EVENTO BOTONES */
+
+const playerPlay = (e) => {
+  if (e.target.matches(".btn")) {
+    console.log(game(e.target.dataset.id));
+  }
+};
+
+d.addEventListener("click", playerPlay);
