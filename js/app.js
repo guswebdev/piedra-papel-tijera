@@ -3,11 +3,13 @@ const round = d.querySelector(".round");
 const winsPlayer = d.querySelector(".winsPlayer");
 const winsComputer = d.querySelector(".winsComputer");
 const winsEnd = d.querySelector(".win-end");
+const btnReset = d.querySelector(".btn-reset");
+const bnts = d.querySelectorAll('.item-btns .btn');
 
-let contador = 1;
-let limitRound = 6;
+let contadorRound = 0;
 let contPlayer = 0;
 let contComputer = 0;
+
 
 function computerPlay() {
   const posiblesManos = ["piedra", "papel", "tijera"];
@@ -16,60 +18,81 @@ function computerPlay() {
 }
 
 function playRound(playerSelection, computerSelection) {
-  if (playerSelection === computerSelection) return;
+  if (playerSelection === computerSelection) return `empate`;
 
   switch (computerSelection) {
     case "piedra":
-      if (playerSelection === "tijera") {
-        contComputer++;
-      } else {
-        contPlayer++;
-      }
-      break;
+      return playerSelection === "tijera" ? `computer` : `player`;
     case "papel":
-      if (playerSelection === "piedra") {
-        contComputer++;
-      } else {
-        contPlayer++;
-      }
-      break;
+      return playerSelection === "piedra" ? `computer` : `player`;
     case "tijera":
-      if (playerSelection === "papel") {
-        contComputer++;
-      } else {
-        contPlayer++;
-      }
-      break;
+      return playerSelection === "papel" ? `computer` : `player`;
   }
 }
 
-function game(playerSelection) {
-  if (contador === limitRound) return;
+function contarPartidas(ganador) {
+  ganador === `computer` ? contComputer++ : contPlayer++;
+}
 
-  round.textContent = contador;
+function mostrarPuntuacion() {
+  winsPlayer.textContent = contPlayer;
+  winsComputer.textContent = contComputer;
+}
+
+function mostrarGanador(ganador) {
+  winsEnd.textContent = ganador.toUpperCase();
+}
+
+function mostrarGanadorFinal(ganador) {
+  winsEnd.textContent = `EL GANADOR FINAL ES ${ganador.toUpperCase()}`;
+}
+
+function game(playerSelection) {
+  round.textContent = contadorRound;
 
   const computerSelection = computerPlay();
-  playRound(playerSelection, computerSelection);
+  let ganador = playRound(playerSelection, computerSelection);
 
-  winsComputer.textContent = contComputer;
-  winsPlayer.textContent = contPlayer;
-  /*
-  if (contPlayer === contComputer) {
-    winsEnd.textContent = `Ha sido un empate`.toUpperCase();
-  } else if (contPlayer > contComputer) {
-    winsEnd.textContent = `El ganador es Player`.toUpperCase();
-  } else {
-    winsEnd.textContent = `El ganador es Computer`.toUpperCase();
+  if (ganador !== `empate`) {
+    contarPartidas(ganador);
   }
-  */
-  contador++;
+
+  mostrarPuntuacion();
+  if (contPlayer === 5 || contComputer === 5) {
+    bnts.forEach(item => {
+      item.setAttribute('disabled','true')
+    })
+    mostrarGanadorFinal(ganador);
+    btnReset.classList.remove('hide');
+    return;
+  }
+  
+  mostrarGanador(ganador);
+}
+
+function resetGame() {
+  contadorRound = 0;
+  contPlayer = 0;
+  contComputer = 0;
+  btnReset.classList.add('hide');
+  winsEnd.textContent = ''
+  mostrarPuntuacion()
+  round.textContent = contadorRound;
+  bnts.forEach(item => {
+    item.removeAttribute('disabled');
+  })
 }
 
 /* DELEGACION DE EVENTO BOTONES */
 
 const playerPlay = (e) => {
-  if (e.target.matches(".btn")) {
+  if (e.target.matches(".item-btns .btn")) {
+    contadorRound++;
     game(e.target.dataset.id);
+  }
+
+  if (e.target.matches(".btn-reset")) {
+    resetGame();
   }
 };
 
