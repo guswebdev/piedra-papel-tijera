@@ -75,7 +75,7 @@ function resetGame() {
   contPlayer = 0;
   contComputer = 0;
   btnReset.classList.add('hide');
-  winsEnd.textContent = ''
+  winsEnd.textContent = `Toca un boton para iniciar el juego`
   mostrarPuntuacion()
   round.textContent = contadorRound;
   bnts.forEach(item => {
