@@ -86,7 +86,7 @@ function resetGame() {
 /* DELEGACION DE EVENTO BOTONES */
 
 const playerPlay = (e) => {
-  if (e.target.matches(".item-btns .btn")) {
+  if (e.target.matches(".item-btns .btn") || e.target.matches(".item-btns .btn *")) {
     contadorRound++;
     game(e.target.dataset.id);
   }
