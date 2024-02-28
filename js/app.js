@@ -1,99 +1,83 @@
 const d = document;
-const round = d.querySelector(".round");
-const winsPlayer = d.querySelector(".winsPlayer");
-const winsComputer = d.querySelector(".winsComputer");
-const winsEnd = d.querySelector(".win-end");
-const btnReset = d.querySelector(".btn-reset");
-const bnts = d.querySelectorAll('.item-btns .btn');
+let contJugador = 0;
+let contMaquina = 0;
 
-let contadorRound = 0;
-let contPlayer = 0;
-let contComputer = 0;
-
-
-function computerPlay() {
-  const posiblesManos = ["piedra", "papel", "tijera"];
-  const random = Math.floor(Math.random() * 3);
-  return `${posiblesManos[random]}`;
-}
-
-function playRound(playerSelection, computerSelection) {
-  if (playerSelection === computerSelection) return `empate`;
-
-  switch (computerSelection) {
+const convertirJugada = (jugada) => {
+  let mano = "";
+  switch(jugada){
     case "piedra":
-      return playerSelection === "tijera" ? `computer` : `player`;
+      mano = 0;
+      break;
     case "papel":
-      return playerSelection === "piedra" ? `computer` : `player`;
+      mano = 1;
+      break;
     case "tijera":
-      return playerSelection === "papel" ? `computer` : `player`;
+      mano = 2;
+      break; 
   }
+  return mano;
 }
 
-function contarPartidas(ganador) {
-  ganador === `computer` ? contComputer++ : contPlayer++;
+const tomarOpcionMaquina = () => {
+  let jugadaMaquina = Math.round(Math.random()*2);
+  return jugadaMaquina;
+
 }
 
-function mostrarPuntuacion() {
-  winsPlayer.textContent = contPlayer;
-  winsComputer.textContent = contComputer;
-}
+const jugarRonda = (manoJugador, manoMaquina) => {
+  
+  
+  if(manoJugador === manoMaquina){
+    console.log("empate, vamos de nuevo!");
+  } else {
+    if(manoJugador == 0 && manoMaquina == 1){
+      console.log("Papel le gana a piedra");
+      contMaquina++;
+    } else if(manoJugador == 0 && manoMaquina == 2) {
+      console.log("Piedra le gana a tijera");
+      contJugador++;
+    }
 
-function mostrarGanador(ganador) {
-  winsEnd.textContent = ganador.toUpperCase();
-}
+    if(manoJugador == 1 && manoMaquina == 0){
+      console.log("Papel le gana a piedra");
+      contJugador++;
+    } else if(manoJugador == 1 && manoMaquina == 2) {
+      console.log("Tijera le gana a papel");
+      contMaquina++;
+      
+    }
 
-function mostrarGanadorFinal(ganador) {
-  winsEnd.textContent = `EL GANADOR FINAL ES ${ganador.toUpperCase()}`;
-}
-
-function game(playerSelection) {
-  round.textContent = contadorRound;
-
-  const computerSelection = computerPlay();
-  let ganador = playRound(playerSelection, computerSelection);
-
-  if (ganador !== `empate`) {
-    contarPartidas(ganador);
-  }
-
-  mostrarPuntuacion();
-  if (contPlayer === 5 || contComputer === 5) {
-    bnts.forEach(item => {
-      item.setAttribute('disabled','true')
-    })
-    mostrarGanadorFinal(ganador);
-    btnReset.classList.remove('hide');
-    return;
+    if(manoJugador == 2 && manoMaquina == 0){
+      console.log("Piedra le gana a tijera");
+      contMaquina++;
+    } else if(manoJugador == 2 && manoMaquina == 1) {
+      console.log("Tijera le gana a papel");
+      contJugador++;
+    }
   }
   
-  mostrarGanador(ganador);
 }
 
-function resetGame() {
-  contadorRound = 0;
-  contPlayer = 0;
-  contComputer = 0;
-  btnReset.classList.add('hide');
-  winsEnd.textContent = `Toca un boton para iniciar el juego`
-  mostrarPuntuacion()
-  round.textContent = contadorRound;
-  bnts.forEach(item => {
-    item.removeAttribute('disabled');
-  })
+const jugarJuego = () => {
+  let rondas = 0;
+  while (rondas < 5){
+    let manoJugador = prompt(`Ingrese 'piedra','papel' o 'tijera'`).toLowerCase();
+    jugarRonda(convertirJugada(manoJugador),tomarOpcionMaquina());
+    rondas++;
+  }
 }
 
-/* DELEGACION DE EVENTO BOTONES */
+const mostrarGanador = () => {
+if(contJugador > contMaquina){
+  console.log(`El Jugador es el ganador`);
+} else if(contJugador < contMaquina) {
+  console.log(`La maquina es el ganador`);
+} else {
+  console.log(`Hubo un empate`);
+}
 
-const playerPlay = (e) => {
-  if (e.target.matches(".item-btns .btn") || e.target.matches(".item-btns .btn *")) {
-    contadorRound++;
-    game(e.target.dataset.id);
-  }
+}
 
-  if (e.target.matches(".btn-reset")) {
-    resetGame();
-  }
-};
 
-d.addEventListener("click", playerPlay);
+jugarJuego();
+mostrarGanador();
